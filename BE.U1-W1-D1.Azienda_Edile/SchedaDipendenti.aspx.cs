@@ -162,12 +162,12 @@ namespace BE.U1_W1_D1.Azienda_Edile
             {
                 string id = Request.QueryString["IdDipendente"];
                 SqlConnection conn = new SqlConnection();
-                conn.ConnectionString = ConfigurationManager.ConnectionStrings["Edil_Port"].ToString();
+                conn.ConnectionString = ConfigurationManager.ConnectionStrings["Edil_Portale"].ToString();
                 conn.Open();
 
                 SqlCommand com = new SqlCommand();
                 com.CommandType = System.Data.CommandType.StoredProcedure;
-                com.CommandText = "AddPayment";
+                com.CommandText = "AggiungiPagamento";
                 com.Connection = conn;
 
                 com.Parameters.AddWithValue("IdDipendente", id);

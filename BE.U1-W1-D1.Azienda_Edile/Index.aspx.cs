@@ -54,6 +54,7 @@ namespace BE.U1_W1_D1.Azienda_Edile
                     lblErrore.Visible = true;
                     lblMessaggio.Visible = true;
                 }
+
             }
         }
     }

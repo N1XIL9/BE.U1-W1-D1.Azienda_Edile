@@ -5,6 +5,7 @@
 
     <div class="container">
         <div class="text-center" runat="server" id="lblMessages" visible="false">
+            <asp:Label ID="lblPayInsert" runat="server" Text="" Visible="false" ForeColor="ForestGreen"></asp:Label>
             <asp:Label ID="lblErrore" runat="server" Text="" Visible="false"></asp:Label>
         </div>
         <div class="card">
