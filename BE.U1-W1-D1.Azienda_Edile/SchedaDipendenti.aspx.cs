@@ -119,17 +119,82 @@ namespace BE.U1_W1_D1.Azienda_Edile
                 lblMessages.Visible = true;
                 lblErrore.Visible = true;
             }
+            if (!IsPostBack)
+            {
+
+                SqlConnection connection = new SqlConnection();
+                connection.ConnectionString = ConfigurationManager.ConnectionStrings["Edil_Portale"].ToString();
+                connection.Open();
+
+                SqlCommand command = new SqlCommand();
+                command.CommandText = "SELECT * FROM STIPENDIO";
+                command.Connection = connection;
+
+                SqlDataReader reader = command.ExecuteReader();
+
+
+
+                while (reader.Read())
+                {
+                    Dipendente s = new Dipendente();
+                    s.IdStipendio = Convert.ToInt32(reader["IdStipendio"]);
+                    s.TipoStipendio = reader["TipoStipendio"].ToString();
+                    ListItem l = new ListItem(s.TipoStipendio, s.IdStipendio.ToString());
+                    ddlTipoStip.Items.Add(l);
+                }
+
+
+
+                connection.Close();
+
+            }
         }
 
         protected void AddPay_Click(object sender, EventArgs e)
         {
+            Payment.Visible = true;
+        }
 
+
+        protected void SavePay_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string id = Request.QueryString["IdDipendente"];
+                SqlConnection conn = new SqlConnection();
+                conn.ConnectionString = ConfigurationManager.ConnectionStrings["Edil_Port"].ToString();
+                conn.Open();
+
+                SqlCommand com = new SqlCommand();
+                com.CommandType = System.Data.CommandType.StoredProcedure;
+                com.CommandText = "AddPayment";
+                com.Connection = conn;
+
+                com.Parameters.AddWithValue("IdDipendente", id);
+                com.Parameters.AddWithValue("IdStipendio", ddlTipoStip.SelectedItem.Value);
+                com.Parameters.AddWithValue("DataPagamento", Calendar1.SelectedDate);
+                com.Parameters.AddWithValue("ImportoPagamento", txtImporto.Text);
+
+                int row = com.ExecuteNonQuery();
+
+                if (row > 0)
+                {
+                    Payment.Visible = false;
+                    lblMessages.Visible = true;
+                    lblPayInsert.Visible = true;
+                    lblPayInsert.Text = "Pagamento inserito con successo!";
+                }
+
+                conn.Close();
+
+
+            }
+            catch (Exception ex)
+            {
+                lblErrore.Text = ex.Message;
+                lblMessages.Visible = true;
+                lblErrore.Visible = true;
+            }
         }
     }
-
-  
-
-       
-    
-
 }

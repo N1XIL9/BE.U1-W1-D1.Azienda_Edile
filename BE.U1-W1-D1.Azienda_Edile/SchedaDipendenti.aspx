@@ -34,6 +34,22 @@
                 <asp:Button ID="AddPay" runat="server" Text="Aggiungi Pagamento" OnClick="AddPay_Click" CssClass="btn btn-outline-success" />
                 <asp:LinkButton ID="LinkButton1" runat="server" PostBackUrl="~/Index.aspx" CssClass="btn btn-outline-info">Torna alla lista Dipendenti</asp:LinkButton>
             </div>
+            <div ID="Payment" runat="server" visible="false">
+            <h2>Aggiungi Pagamento per <asp:Label ID="lblDip" runat="server" Text=""></asp:Label></h2>
+            <div class="mb-3">
+                <label class="form-label">Tipo di pagamento:</label>
+                <asp:DropDownList ID="ddlTipoStip" runat="server"></asp:DropDownList>
+            </div>
+                <div class="mb-3">
+                    <label class="form-label">Importo:</label>
+                    <asp:TextBox ID="txtImporto" runat="server" CssClass="form-control"></asp:TextBox>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Eseguito il:</label>
+                    <asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
+                </div>
+                <asp:Button ID="SavePay" runat="server" Text="Inserisci Pagamento" OnClick="SavePay_Click"  />
+            </div>
         </div>
         <asp:GridView ID="GridViewPage" runat="server"
             CssClass="table table-bordered"
